@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:rgb(8, 199, 199);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            padding-top: 50px;
+        }
+        .post {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .post h2 {
+            margin-top: 0;
+        }
+        .post p {
+            color: #555;
+        }
+        .logout {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+        }
+        
+        .logout a {
+            text-decoration: none;
+            color: red;
+            
+        }
+        
+        .logout a:hover {
+            color: #f00; /* Change to your preferred color */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Blog Posts</h1>
+        <a href="{% url 'post_create' %}" style="font-size: 24px; color: blue;">Create a new post</a>
+        <hr>
+        
+        {% for post in posts %}
+            <div class="post">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+                <small>Created at: {{ post.created_at }}</small>
+                <a href="{% url 'post_update' id=post.id %}">Edit</a> |
+                <a href="{% url 'post_delete' id=post.id %}">Delete</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="logout">
+        <!-- Link to the logout view -->
+        <a href="{% url 'logout' %}">
+            <!-- Logout icon -->
+            <i class="fas fa-sign-out-alt" style="font-size: 24px; color: red;"></i>
+            Logout
+        </a>
+    </div>
+
+</body>
+</html>
